@@ -198,6 +198,33 @@ impl StakingPoolFactory {
             ))
     }
 
+    pub fn remove_staking_pool_account_id(
+        &mut self,
+        staking_pool_account_id: String
+    ) -> PromiseOrValue<bool> {
+        assert!(
+            env::is_valid_account_id(staking_pool_account_id.as_bytes()),
+            "The staking pool account ID is invalid"
+        );
+        let root_staking_pool_account_id = staking_pool_account_id.get(
+            (staking_pool_account_id.find(".").unwrap()+1)..
+        ).unwrap();
+        assert!(
+            env::predecessor_account_id() == root_staking_pool_account_id,
+            "Only owner of staking pool account can remove themself"
+        );
+
+        self.staking_pool_account_ids
+            .remove(&staking_pool_account_id);
+        env::log(
+            format!(
+                "Remove account {} from staking pool successfully",
+                staking_pool_account_id
+            ).as_bytes()
+        );
+        PromiseOrValue::Value(true)
+    }
+
     /// Callback after a staking pool was created.
     /// Returns the promise to whitelist the staking pool contract if the pool creation succeeded.
     /// Otherwise refunds the attached deposit and returns `false`.
