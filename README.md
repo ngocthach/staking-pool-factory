@@ -1,7 +1,8 @@
 # Exercise: Modify Staking Pool Factory Contract
 
-Code path: https://github.com/ngocthach/staking-pool-factory/staking-pool-factory/
+Code path: https://github.com/ngocthach/staking-pool-factory/tree/main/staking-pool-factory
 
+Modify error message when deposit amount < 30 TGas (30 Near)
 
 cd staking-pool-factory
 

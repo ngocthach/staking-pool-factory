@@ -68,6 +68,7 @@ pub fn on_staking_pool_create(
 ---- Exercise ----
 
 
+
 rustup target add wasm32-unknown-unknown
 
 ./build.sh
